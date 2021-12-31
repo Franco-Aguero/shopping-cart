@@ -1,10 +1,13 @@
 import './App.css';
-
+import Detail from './Components/detail';
+import CartState from './Context/ShoppingCart/cartState';
 const App = () => {
   return (
-    <div className="App">
-      Welcome to 
-    </div>
+    <CartState>
+      <div className="App">
+        <Detail/>
+      </div>
+    </CartState>
   );
 }
 
