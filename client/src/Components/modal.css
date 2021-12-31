@@ -1,0 +1,17 @@
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0,0,0,.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.is-open{
+    display: flex;
+}
+.modal-container{
+    background-color: royalblue; /* sacar despues */
+}
