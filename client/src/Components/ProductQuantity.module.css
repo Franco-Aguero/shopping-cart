@@ -1,0 +1,30 @@
+.quantity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+#BtnLeft, #BtnRight{
+    background-color: rgba(250, 250, 250, 0.842);
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+}
+
+input{
+    background: none;
+    width: 1.5rem;
+    height: auto;
+    text-align: center;
+    outline: none;
+    border: none;
+}
+    
+#killProduct{
+    border: none;
+    outline: none;
+    background: none;
+    position: absolute;
+    right: 0;
+}

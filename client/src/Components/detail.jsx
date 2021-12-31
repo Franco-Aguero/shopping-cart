@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import CartContext from "../Context/ShoppingCart/cartContext";
-import axios from "axios";
-
+import { useModal } from "../Hooks/useModal"
+import Modal from "./Modal";
+import ShoppingCart from "./ShoppingCart";
 
 const Detail = () => {
     let dataProduct=true;
@@ -12,6 +13,10 @@ const Detail = () => {
         /* console.log(data.detail_product.product.list[2]) */
     },[])  
     console.log("second", productSpecific)
+
+    /* const [isOpenModal1, openModal1, closeModal1] = useModal(false); */
+    const [isOpenCart, openModalCart, closeModalCart] = useModal(true);
+    
     return (
         <div>
             {
@@ -19,6 +24,10 @@ const Detail = () => {
                 <>
                     <span>/</span>
                     <span>/</span>
+                    {/* <Modal isOpen={isOpenModal1} closeModal={closeModal1}>
+                        <h5>SOY MODAL MATIIIII</h5>
+                    </Modal> */}
+                    <ShoppingCart isOpen={isOpenCart} closeModal={closeModalCart}/>
                 </>
                 : <span>cargando</span>
             }
