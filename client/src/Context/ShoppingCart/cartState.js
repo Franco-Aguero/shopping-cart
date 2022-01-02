@@ -21,7 +21,7 @@ const CartState = (props) => {
             alert(err)
         }
     }
-    const addCart = (product) => {
+    const addCart = ( product ) => {
         dispatch({ type: ADD_CART, payload: product})
     }
     const deleteProductCart = (id) => {

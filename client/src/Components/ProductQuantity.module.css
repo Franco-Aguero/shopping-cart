@@ -6,10 +6,12 @@
 }
 
 #BtnLeft, #BtnRight{
-    background-color: rgba(250, 250, 250, 0.842);
+    background-color: rgb(231 229 229 / 73%);
     width: 1.5rem;
     height: 1.5rem;
     border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 input{
@@ -27,4 +29,5 @@ input{
     background: none;
     position: absolute;
     right: 0;
+    cursor: pointer;
 }

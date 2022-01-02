@@ -7,7 +7,15 @@ function cartReducer(state, action) {
         case GET_PRODUCT_SPECIFIC:
             return {...state, productSpecific: payload}
         case ADD_CART:
-            return {...state, shoppingCart: payload}
+            return {
+                ...state, 
+                shoppingCart: state.shoppingCart.find( el => el.id === payload.id)?
+                state.shoppingCart.map( el => {
+                    if(el.id === payload.id) return {...el, unit:payload.unit}
+                    else return el
+                })
+                : [...state.shoppingCart, payload]
+            }
         case DELETE_PRODUCT_CART:
             return {...state, shoppingCart: state.shoppingCart.filter( el => el.id !== payload)}
         default:
