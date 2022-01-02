@@ -1,4 +1,4 @@
-.quantity{
+.quantityInCart{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -30,4 +30,30 @@ input{
     position: absolute;
     right: 0;
     cursor: pointer;
+}
+/* ------------------- */
+
+.quantityInProductSpecif{
+    display: flex;
+    width: max-content;
+}
+.quantityInProductSpecif div:first-of-type{
+    display: flex;
+    flex-direction: column-reverse;
+    margin-right: 1.5rem;
+}
+#BtnIncrement ,#BtnDecrement{
+    cursor: pointer;
+    border: none;
+    padding: 2px 8px;
+    font-size: 20px;
+}
+.quantityInProductSpecif input{
+    padding: 1rem;
+    border: 1px solid rgb(231 229 229 / 73%);
+    outline: none;
+}
+.quantityInProductSpecif button{
+    font-size: 11px;
+    outline: none;
 }

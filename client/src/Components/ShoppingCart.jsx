@@ -6,6 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import ProductQuantity from "./ProductQuantity";
 import utils from "./utils"
 import s from"./ShoppingCart.module.css"
+import ButtonBlack from "./Views/buttonBlack";
 
 const ShoppingCart = ({isOpen, closeModal}) => {
     let img="https://maui-prod-sail.s3-us-west-2.amazonaws.com/media/cache/fb/fa/fbfa8c8b22068634308a33ee585e0c53.jpg";//provisorio
@@ -34,7 +35,7 @@ const ShoppingCart = ({isOpen, closeModal}) => {
                                                 <b>COLOR</b> MELANGE
                                             </p>
                                             <span><b>S/ 75.00</b></span>   
-                                            <ProductQuantity stock={el.stock || 15} unit={el.unit || 4}/>
+                                            <ProductQuantity viewCart={true} stock={el.stock || 15} unit={el.unit || 4}/>
                                         </div>
                                     </li>
                                 )
@@ -42,7 +43,9 @@ const ShoppingCart = ({isOpen, closeModal}) => {
                         </ul>
                         <footer>
                             <p>SUBTOTAL  <span>{totalPriceCart(storeOfCart) || "S/ 75.00"}</span></p>
-                            <button>IR AL CARRITO</button>
+                            <ButtonBlack>
+                                <span style={{padding:"1rem 0", fontWeight:"600"}}>IR AL CARRITO</span>
+                            </ButtonBlack> 
                         </footer>
                     </>
                     :
