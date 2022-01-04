@@ -6,19 +6,20 @@ import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import s from "./NavBar.module.css";
 
 const NavBar = () => {
-    const list = ["MUJER","HOMBRE", "COLECCIONES", "PROMOCIONES", "NAVIDAD"]
+    let list = ["MUJER","HOMBRE", "COLECCIONES", "PROMOCIONES", "NAVIDAD"], numberKey = 0;
+    
     return (
         <header className={s.Container}>
             <div>
                 <SearchBar/>
-                <h1>JOCKEY</h1>
+                <h1 style={{fontWeight: "500", fontSize: "30px"}}>JOCKEY</h1>
                 <span><FontAwesomeIcon icon={faUserAlt} id={s.iconUser} />INGRESAR</span> 
             </div>
             <nav>
                 <ul className={s.ListPage}>
                     {
                         list.map( el => 
-                            <li>
+                            <li key={numberKey++}>
                                 <Link to={`#${el}`}>{el}</Link> 
                             </li>
                         )

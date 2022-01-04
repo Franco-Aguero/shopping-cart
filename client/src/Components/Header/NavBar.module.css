@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 .Container{
     display: flex;
     flex-direction: column;
-    background-color: rgb(47, 66, 8);
+    background-color: #101a27;
     color: white;
     padding: 1rem 2rem;
+    font-family: 'Questrial', sans-serif;
 }
 .Container div:first-of-type{
     display: flex;
@@ -23,4 +25,7 @@
     padding: .5rem 2rem;
     color: white;
     text-decoration: none;
+}
+#iconUser{
+    margin-right: 1rem;
 }
