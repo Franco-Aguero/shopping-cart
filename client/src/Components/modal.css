@@ -4,10 +4,11 @@
     left: 0;
     width: 100%;
     min-height: 100vh;
-    background-color: rgba(0,0,0,.75);
+    background-color: #0000002e;
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 999;
 }
 .is-open{
     display: flex;

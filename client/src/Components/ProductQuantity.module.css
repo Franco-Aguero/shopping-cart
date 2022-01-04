@@ -14,7 +14,7 @@
     cursor: pointer;
 }
 
-input{
+.InputNumber{
     background: none;
     width: 1.5rem;
     height: auto;
@@ -48,7 +48,7 @@ input{
     padding: 2px 8px;
     font-size: 20px;
 }
-.quantityInProductSpecif input{
+.quantityInProductSpecif .InputNumber{
     padding: 1rem;
     border: 1px solid rgb(231 229 229 / 73%);
     outline: none;

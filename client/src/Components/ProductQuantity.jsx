@@ -3,13 +3,19 @@ import CartContext from "../Context/ShoppingCart/cartContext";
 import ButtonBlack from "./Views/buttonBlack";
 import s from "./ProductQuantity.module.css"
 
-const ProductQuantity = ({ stock, id, unit, productData, viewCart}) => {
+const ProductQuantity = ({ stock, id, unit, productData, viewCart, handleClic}) => {
     const { addCart, deleteProductCart} = useContext(CartContext);
     let [productUnit, setProductUnit] = useState(unit || 1);
     const handleChange = (e) =>  e.target.value > 0 && e.target.value <= stock && setProductUnit(productUnit = e.target.value);
-    const addCartProductSpecific = () => addCart({...productData,productUnit})//console.log({...productData,productUnit})
+    const addCartProductSpecific = async () => {
+        await addCart({...productData,productUnit});    /* console.log({...productData,productUnit}) */
+        handleClic()
+    }    
     useEffect( () => {
-        addCart( {id, productUnit})
+        if (!String(viewCart) === "true"){
+            addCart( {id, productUnit})
+            console.log("EN ALGUN MONETNO SAE ENVIO", viewCart)
+        }
         //alert("se esta enviando", productUnit)
     },[productUnit]);
     return (
@@ -18,14 +24,14 @@ const ProductQuantity = ({ stock, id, unit, productData, viewCart}) => {
             viewCart?
             <div className={s.quantityInCart}>                      {/* for view of shopping cart */}
                 <button id={s.BtnLeft} onClick={ () => productUnit > 1 && setProductUnit(--productUnit)}>-</button>          
-                <input type="number" name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
+                <input type="number" className={s.InputNumber} name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
                 <button id={s.BtnRight} onClick={ productUnit < stock ?() => setProductUnit(++productUnit):null}>+</button>
                 
                 <button id={s.killProduct} onClick={() => deleteProductCart(id)}>Quitar</button>
             </div>
             :   
             <div className={s.quantityInProductSpecif}>              {/* for view of detail product */}
-                <input type="number" name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
+                <input type="number" className={s.InputNumber} name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
                 <div>
                     <button id={s.BtnDecrement} onClick={ () => productUnit > 1 && setProductUnit(--productUnit)}>-</button>          
                     <button id={s.BtnIncrement} onClick={ productUnit < stock ?() => setProductUnit(++productUnit):null}>+</button>
@@ -39,3 +45,6 @@ const ProductQuantity = ({ stock, id, unit, productData, viewCart}) => {
     )
 }
 export default ProductQuantity;
+
+// prop ProductData, recibe la informacion del producto seleccionado para luego juntarlo con la unidad y cargarlo en el carrito
+// prop viewCart, es para saber cual button debe retornar

@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import ProductQuantity from "./ProductQuantity";
 import utils from "./utils"
-import s from"./ShoppingCart.module.css"
 import ButtonBlack from "./Views/buttonBlack";
+import s from"./ShoppingCart.module.css"
+import Divider from "./Views/divider";
 
 const ShoppingCart = ({isOpen, closeModal}) => {
     let img="https://maui-prod-sail.s3-us-west-2.amazonaws.com/media/cache/fb/fa/fbfa8c8b22068634308a33ee585e0c53.jpg";//provisorio
-    const { productSpecific } = useContext(CartContext);
-    let storeOfCart = [productSpecific];
+    const { shoppingCart } = useContext(CartContext);
     const { totalPriceCart } = utils;
     return (
         <Modal isOpen={isOpen} closeModal={closeModal}>
@@ -20,29 +20,31 @@ const ShoppingCart = ({isOpen, closeModal}) => {
                     <h3>CARRO DE COMPRAS (1)</h3>
                     <button onClick={closeModal}><FontAwesomeIcon icon={faTimes} id={s.iconClosed} /></button>
                 </header>
+                <Divider/>
                 {
-                    storeOfCart.length > 0 ?
+                    shoppingCart.length > 0 ?
                     <>
-                        <ul>
+                        <ul className={s.ProductList}>
                             {
-                                storeOfCart.map( el => 
+                                shoppingCart.map( el => 
                                     <li>
-                                        <img src={img} alt="product" />
-                                        <div>
-                                            <span><b>SHORT JERSEY C50008</b></span>
+                                        <img src={el.src} alt="product" />
+                                        <div className={s.Information}>
+                                            <span><b>{el.name}</b></span>
                                             <p>
-                                                <b>TALLA</b> MEDIUM <br />
-                                                <b>COLOR</b> MELANGE
+                                                <b>TALLA</b> {el.variantes.talla.value} <br />
+                                                <b>COLOR</b> {el.variantes.color.value}
                                             </p>
-                                            <span><b>S/ 75.00</b></span>   
-                                            <ProductQuantity viewCart={true} stock={el.stock || 15} unit={el.unit || 4}/>
+                                            <span><b>S/ {el.price}</b></span>   
+                                            <ProductQuantity viewCart={true} stock={el.stock} unit={el.productUnit}/>
                                         </div>
                                     </li>
                                 )
                             }
                         </ul>
+                        <Divider/>
                         <footer>
-                            <p>SUBTOTAL  <span>{totalPriceCart(storeOfCart) || "S/ 75.00"}</span></p>
+                            <p>SUBTOTAL  <span>{totalPriceCart(shoppingCart) || "S/ 75.00"}</span></p>
                             <ButtonBlack>
                                 <span style={{padding:"1rem 0", fontWeight:"600"}}>IR AL CARRITO</span>
                             </ButtonBlack> 

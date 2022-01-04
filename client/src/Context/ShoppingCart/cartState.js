@@ -15,7 +15,7 @@ const CartState = (props) => {
     const getProductSpecific = async() => {
         try{
             let { data } = await axios.get(url);
-            dispatch({ type: GET_PRODUCT_SPECIFIC, payload: data})
+            dispatch({ type: GET_PRODUCT_SPECIFIC, payload: data.detail_product})
         }
         catch(err){
             alert(err)
