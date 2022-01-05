@@ -1,19 +1,19 @@
-.quantityInCart{
+/* .quantityInCart{
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
-}
+} */
 
-#BtnLeft, #BtnRight{
+/* #BtnLeft, #BtnRight{
     background-color: rgb(231 229 229 / 73%);
     width: 1.5rem;
     height: 1.5rem;
     border: none;
     outline: none;
     cursor: pointer;
-}
-
+} */
+/* 
 .InputNumber{
     background: none;
     width: 1.5rem;
@@ -21,19 +21,19 @@
     text-align: center;
     outline: none;
     border: none;
-}
+} */
     
-#killProduct{
+/* #killProduct{
     border: none;
     outline: none;
     background: none;
     position: absolute;
     right: 0;
     cursor: pointer;
-}
+} */
 /* ------------------- */
 
-.quantityInProductSpecif{
+/* .quantityInProductSpecif{
     display: flex;
     width: max-content;
 }
@@ -47,13 +47,13 @@
     border: none;
     padding: 2px 8px;
     font-size: 20px;
-}
-.quantityInProductSpecif .InputNumber{
+} */
+/* .quantityInProductSpecif .InputNumber{
     padding: 1rem;
     border: 1px solid rgb(231 229 229 / 73%);
     outline: none;
-}
-.quantityInProductSpecif button{
+} */
+/* .quantityInProductSpecif button{
     font-size: 11px;
     outline: none;
-}
+} */

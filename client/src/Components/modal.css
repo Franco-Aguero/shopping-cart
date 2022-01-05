@@ -1,4 +1,4 @@
-.modal{
+/* .modal{
     position: fixed;
     top: 0;
     left: 0;
@@ -9,10 +9,10 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-}
-.is-open{
+} */
+/* .is-open{
     display: flex;
-}
-.modal-container{
-    background-color: royalblue; /* sacar despues */
-}
+} */
+/* .modal-container{
+    background-color: royalblue; sacar despues
+} */
