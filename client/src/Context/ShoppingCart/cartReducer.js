@@ -9,15 +9,15 @@ function cartReducer(state, action) {
         case ADD_CART:
             return {
                 ...state, 
-                shoppingCart: state.shoppingCart.find( el => el.id === payload.id)?
+                shoppingCart: state.shoppingCart.find( el => el.sku === payload.sku )?
                 state.shoppingCart.map( el => {
-                    if(el.id === payload.id) return {...el, unit:payload.unit}
+                    if(el.sku === payload.sku) return {...el, unit:payload.unit}
                     else return el
                 })
                 : [...state.shoppingCart, payload]
             }
         case DELETE_PRODUCT_CART:
-            return {...state, shoppingCart: state.shoppingCart.filter( el => el.id !== payload)}
+            return {...state, shoppingCart: state.shoppingCart.filter( el => el.sku !== payload)}
         default:
             return state
     }

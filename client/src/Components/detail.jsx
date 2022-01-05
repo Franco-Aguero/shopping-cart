@@ -4,14 +4,13 @@ import { useModal } from "../Hooks/useModal";
 import ShoppingCart from "./ShoppingCart";
 import Divider from "./Views/divider";
 import ProductQuantity from "./ProductQuantity";
+import utils from "./utils";
 import s from "./detail.module.css";
-import ButtonBlack from "./Views/buttonBlack";
 
 const Detail = () => {
-    let dataProduct=true;
     const { getProductSpecific, productSpecific} = useContext(CartContext);
-  
-    //productSpecific.detail_product.product.list.find( el => el.attributes_variants[0].id === 15063)
+    const { activeStyle } = utils;
+    let numT = 0, numC = 0;
     const [state, setState] = useState({
         vTalle: 0, //variate de talle
         vColor:0,
@@ -32,14 +31,15 @@ const Detail = () => {
             { "categoria de producto": "" }
         ]
     }); 
-
+    const modifyTalles = (e) => setState({...state,vTalle:e.target.value})
     useEffect( () => {
         getProductSpecific()
     },[])  
 
     useEffect( () => {
         if(Object.keys(productSpecific).length > 1){
-            let encontrador = productSpecific.product.list.find( el => el.attributes_variants[0].id === 15063) //segundo id tengo que cambiar por state local
+            let defaultTalla = productSpecific.product.attributes[0].values[state.vTalle].id;
+            let encontrador = productSpecific.product.list.find( el => el.attributes_variants[0].id === defaultTalla) //segundo id tengo que cambiar por state local
             setState({ 
                 ...state,
                 src: encontrador.media[1].src,
@@ -67,8 +67,9 @@ const Detail = () => {
                     { "categoria de producto": encontrador.extra_features["categoria de producto"] }
                 ]
             });
+            console.log("ENTROSS")
         }
-    },[productSpecific])  
+    },[productSpecific, state.vTalle])  
         
     const [isOpenCart, openModalCart, closeModalCart] = useModal(false);
     
@@ -78,7 +79,7 @@ const Detail = () => {
             Object.keys(productSpecific).length > 1 ?
                 <>
                    <div className={s.Container}>
-                       <img src={state.src} alt="product" width={300}/>
+                       <img src={state.src} alt="product" width={400}/>
                        <div className={s.Left}>
                             <h2>{state.name}</h2>
                             <span>SKU: {state.sku}</span>
@@ -93,22 +94,28 @@ const Detail = () => {
                                     <br />
                                 <b>TALLA</b> {state.variantes.talla.value} 
                                     <br />
-                                <ButtonBlack>30</ButtonBlack>
-                                <ButtonBlack>32</ButtonBlack>
-                                <ButtonBlack>36</ButtonBlack>
+                                <ul style={{listStyle:"none", display:"flex", padding: "0", gridGap:".5rem"}}>
+                                {
+                                    productSpecific.product.attributes[0].values.map( el => 
+                                        <li key={el.id}>
+                                            <button type={numT} className={activeStyle(state.vTalle, numT)} value={numT++} onClick={(e) => modifyTalles(e)}>{el.value}</button>
+                                        </li> 
+                                    )
+                                }
+                                </ul>
                             </div>
                             <Divider/>
-                            <ProductQuantity viewCart={false} stock={state.stock} productData={state} handleClic={openModalCart}/>
+                            <ProductQuantity viewCart={false} stock={state.stock} productData={state} sku={state.sku} handleClic={openModalCart}/>
                             
                             <Divider/>
-                            <p>
+                            <div>
                                 <span>Ficha Tecnica</span>
                                 <ul style={{listStyle:"none", padding:"0"}}>
                                     <li>- Short super suave y fresco</li>
                                     <li>- Pititas ajustables</li>
                                     <li>- Bolsillo laterales</li>
                                 </ul>
-                            </p>
+                            </div>
                        </div>
                    </div>
                     <ShoppingCart isOpen={isOpenCart} closeModal={closeModalCart}/>

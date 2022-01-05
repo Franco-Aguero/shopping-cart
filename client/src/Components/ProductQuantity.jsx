@@ -3,21 +3,26 @@ import CartContext from "../Context/ShoppingCart/cartContext";
 import ButtonBlack from "./Views/buttonBlack";
 import s from "./ProductQuantity.module.css"
 
-const ProductQuantity = ({ stock, id, unit, productData, viewCart, handleClic}) => {
+const ProductQuantity = ({ stock, sku, unit, productData, viewCart, handleClic}) => {
     const { addCart, deleteProductCart} = useContext(CartContext);
     let [productUnit, setProductUnit] = useState(unit || 1);
     const handleChange = (e) =>  e.target.value > 0 && e.target.value <= stock && setProductUnit(productUnit = e.target.value);
     const addCartProductSpecific = async () => {
-        await addCart({...productData,productUnit});    /* console.log({...productData,productUnit}) */
-        handleClic()
+        await addCart({...productData, unit: productUnit}); 
+        setProductUnit(1);
+        handleClic();
     }    
     useEffect( () => {
-        if (!String(viewCart) === "true"){
-            addCart( {id, productUnit})
+        if (viewCart){
+            addCart( {sku, unit: productUnit})
             console.log("EN ALGUN MONETNO SAE ENVIO", viewCart)
         }
         //alert("se esta enviando", productUnit)
     },[productUnit]);
+    useEffect( () => {
+        if(!viewCart)return setProductUnit(1);//esta verificacion es por si cambian de talle, que la unidad se resetee en el component detail
+    },[productData?.sku]);
+    console.log(viewCart)
     return (
         <>
             {
@@ -27,7 +32,7 @@ const ProductQuantity = ({ stock, id, unit, productData, viewCart, handleClic}) 
                 <input type="number" className={s.InputNumber} name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
                 <button id={s.BtnRight} onClick={ productUnit < stock ?() => setProductUnit(++productUnit):null}>+</button>
                 
-                <button id={s.killProduct} onClick={() => deleteProductCart(id)}>Quitar</button>
+                <button id={s.killProduct} onClick={() => deleteProductCart(sku)}>Quitar</button>
             </div>
             :   
             <div className={s.quantityInProductSpecif}>              {/* for view of detail product */}

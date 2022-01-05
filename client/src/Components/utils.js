@@ -1,7 +1,10 @@
 const utils = {
+    activeStyle: (state, name) => { 
+        if(state === name) return "Active" 
+    },
     totalPriceCart: ( prop ) => {
         let costProduct = 0;
-        prop.map( product => costProduct += parseInt(product.price) * parseInt(product.unid) )
+        prop.map( product => costProduct += parseInt(product.price) * parseInt(product.unit) )
         return costProduct
     }
 }
