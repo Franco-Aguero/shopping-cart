@@ -1,4 +1,12 @@
-.Container{
+.ContainetButtons button{
+    background: none ;
+    border: 1px solid #dfdfdf;    
+}
+.ContainetButtons .Active{
+    background: rgb(0, 0, 0);
+    color: white;
+}
+/* .Container{
     display: flex;
     justify-content: center;
     grid-gap: 4rem;
@@ -7,8 +15,8 @@
 .Left{
     display: flex;
     flex-direction: column;
-}
-input[type='radio']:after {
+} */
+/* input[type='radio']:after {
     width: 15px;
     height: 15px;
     border-radius: 15px;
@@ -33,4 +41,5 @@ input[type='radio']:checked:after {
     display: inline-block;
     visibility: visible;
     border: 2px solid white;
-}
+} 
+NO LO USO*/

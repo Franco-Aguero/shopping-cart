@@ -1,12 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../Context/ShoppingCart/cartContext";
 import { useModal } from "../Hooks/useModal";
+import ProductQuantity from "./ProductQuantity";
 import ShoppingCart from "./ShoppingCart";
 import Divider from "./Views/divider";
-import ProductQuantity from "./ProductQuantity";
 import utils from "./utils";
-import s from "./detail.module.css";
+import styled, {css} from "styled-components";
+import s from "./detail.css";
 
+const CenterArticle = styled.article`
+    min-height: 86vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`,
+ContainerDiv = styled.div`
+    display: flex;
+    grid-gap: 4rem;
+    margin: auto;
+    div:first-of-type{
+        display: flex;
+        flex-direction: column;
+    }
+`,
+SizesList = styled.ul`
+    display: flex;
+    grid-gap: .5rem;
+`,
+UrlText = styled.h5`
+    font-weight: 500;
+    color: #b9b9b9;
+    margin-top: 0;
+`,
+SkuValue = styled.span`
+    margin: 1rem 0;
+    font-weight: 500;
+    font-size: 12px;
+`,
+TechnicalInformation = styled.div`
+    display: flex;
+    flex-direction: column;
+    span{
+        margin: .5rem 0 1rem;
+    }
+`;
 const Detail = () => {
     const { getProductSpecific, productSpecific} = useContext(CartContext);
     const { activeStyle } = utils;
@@ -29,7 +66,8 @@ const Detail = () => {
             { talla: "" },
             { otros: "" },
             { "categoria de producto": "" }
-        ]
+        ],
+        breadcrumb: [],
     }); 
     const modifyTalles = (e) => setState({...state,vTalle:e.target.value})
     useEffect( () => {
@@ -38,39 +76,40 @@ const Detail = () => {
 
     useEffect( () => {
         if(Object.keys(productSpecific).length > 1){
-            let defaultTalla = productSpecific.product.attributes[0].values[state.vTalle].id;
-            let encontrador = productSpecific.product.list.find( el => el.attributes_variants[0].id === defaultTalla) //segundo id tengo que cambiar por state local
+            let defaultSize = productSpecific.product.attributes[0].values[state.vTalle].id;
+            let productFound = productSpecific.product.list.find( el => el.attributes_variants[0].id === defaultSize) //segundo id tengo que cambiar por state local
             setState({ 
                 ...state,
-                src: encontrador.media[1].src,
-                sku: encontrador.properties.sku ,
-                name: encontrador.properties.name ,
-                price: encontrador.properties.price,
-                stock: encontrador.properties.stock,
+                src: productFound.media[1].src,
+                sku: productFound.properties.sku ,
+                name: productFound.properties.name ,
+                price: productFound.properties.price,
+                stock: productFound.properties.stock,
                 variantes:{
                     color: {
-                        id: encontrador.attributes_variants[1].id,
-                        name: encontrador.attributes_variants[1].name,
-                        value: encontrador.attributes_variants[1].value,
+                        id: productFound.attributes_variants[1].id,
+                        name: productFound.attributes_variants[1].name,
+                        value: productFound.attributes_variants[1].value,
                     },
                     talla: {
-                        id: encontrador.attributes_variants[0].id,
-                        name: encontrador.attributes_variants[0].name,
-                        value: encontrador.attributes_variants[0].value,
+                        id: productFound.attributes_variants[0].id,
+                        name: productFound.attributes_variants[0].name,
+                        value: productFound.attributes_variants[0].value,
                     }
                 },  
                 ficha_tecnica: [
-                    { color: encontrador.extra_features.color },
-                    { marca: encontrador.extra_features.marca },
-                    { talla: encontrador.extra_features.talla },
-                    { otros: encontrador.extra_features.otros },
-                    { "categoria de producto": encontrador.extra_features["categoria de producto"] }
-                ]
+                    { color: productFound.extra_features.color },
+                    { marca: productFound.extra_features.marca },
+                    { talla: productFound.extra_features.talla },
+                    { otros: productFound.extra_features.otros },
+                    { "categoria de producto": productFound.extra_features["categoria de producto"] }
+                ],
+                breadcrumb: productSpecific.breadcrumb.map( el => el.url.toUpperCase() ), 
             });
             console.log("ENTROSS")
         }
     },[productSpecific, state.vTalle])  
-        
+    console.log(state)
     const [isOpenCart, openModalCart, closeModalCart] = useModal(false);
     
     return (
@@ -78,12 +117,17 @@ const Detail = () => {
             
             Object.keys(productSpecific).length > 1 ?
                 <>
-                   <div className={s.Container}>
+                <CenterArticle>
+                <div style={{display:"flex", flexDirection:"column"}}>
+
+                    <UrlText>{state.breadcrumb.join(" /  ")}</UrlText>
+                    
+                   <ContainerDiv className={s.Container}>
                        <img src={state.src} alt="product" width={400}/>
                        <div className={s.Left}>
                             <h2>{state.name}</h2>
-                            <span>SKU: {state.sku}</span>
-                            <span><b>S/ { state.price}</b></span>
+                            <SkuValue>SKU: {state.sku}</SkuValue>
+                            <h3>S/ { state.price}</h3>
                             <Divider/>
                             <div>
                                 <b>COLOR</b> {state.variantes.color.value}
@@ -94,30 +138,34 @@ const Detail = () => {
                                     <br />
                                 <b>TALLA</b> {state.variantes.talla.value} 
                                     <br />
-                                <ul style={{listStyle:"none", display:"flex", padding: "0", gridGap:".5rem"}}>
+                                <SizesList className="ContainetButtons">
                                 {
                                     productSpecific.product.attributes[0].values.map( el => 
                                         <li key={el.id}>
-                                            <button type={numT} className={activeStyle(state.vTalle, numT)} value={numT++} onClick={(e) => modifyTalles(e)}>{el.value}</button>
+                                            <button className={activeStyle(state.vTalle,numT)} value={numT++} onClick={(e) => modifyTalles(e)}>{el.value}</button>
                                         </li> 
                                     )
                                 }
-                                </ul>
+                                </SizesList>
                             </div>
                             <Divider/>
                             <ProductQuantity viewCart={false} stock={state.stock} productData={state} sku={state.sku} handleClic={openModalCart}/>
                             
                             <Divider/>
-                            <div>
+                            <TechnicalInformation>
                                 <span>Ficha Tecnica</span>
-                                <ul style={{listStyle:"none", padding:"0"}}>
-                                    <li>- Short super suave y fresco</li>
-                                    <li>- Pititas ajustables</li>
-                                    <li>- Bolsillo laterales</li>
+                                <ul>
+                                    {
+                                        state.ficha_tecnica.map( obj => {
+                                            return <li key={Object.keys(obj)[0]}>- {Object.values(obj)[0]}</li>
+                                        })
+                                    }
                                 </ul>
-                            </div>
+                            </TechnicalInformation>
                        </div>
-                   </div>
+                   </ContainerDiv>
+            </div>
+                </CenterArticle>
                     <ShoppingCart isOpen={isOpenCart} closeModal={closeModalCart}/>
                 </>
                 : <span>cargando</span>

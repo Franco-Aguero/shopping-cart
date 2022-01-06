@@ -1,6 +1,7 @@
 const utils = {
-    activeStyle: (state, name) => { 
-        if(state === name) return "Active" 
+    activeStyle: (state, name) => {
+        if(state === name) return "Active"
+        
     },
     totalPriceCart: ( prop ) => {
         let costProduct = 0;

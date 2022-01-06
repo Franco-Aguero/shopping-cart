@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../Context/ShoppingCart/cartContext";
 import ButtonBlack from "./Views/buttonBlack";
-import s from "./ProductQuantity.module.css"
+//import s from "./ProductQuantity.module.css"
 import styled from "styled-components";
 
 const QuantityInCartDiv = styled.div`
@@ -38,9 +38,10 @@ const QuantityInCartDiv = styled.div`
 QuantityInProductSpecifDiv = styled.div`
     display: flex;
     width: max-content;
+    margin: 0.5rem 0;
     div:first-of-type{
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         margin-right: 1.5rem;
     };
     button:nth-child(1), button:nth-child(2){
@@ -94,14 +95,14 @@ const ProductQuantity = ({ stock, sku, unit, productData, viewCart, handleClic})
                 <button onClick={ () => productUnit > 1 && setProductUnit(--productUnit)}>-</button>          
                 <input type="number" name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
                 <button onClick={ productUnit < stock ?() => setProductUnit(++productUnit):null}>+</button>
-                <button onClick={() => deleteProductCart(sku)}>Quitar</button>
+                <button onClick={() => deleteProductCart(sku)}><u>Quitar</u></button>
             </QuantityInCartDiv>
             :   
             <QuantityInProductSpecifDiv>              {/* for view of detail product */}
                 <input type="number" name="productUnit" value={productUnit} onChange={(e) => handleChange(e)} min="1"/> 
                 <div>
-                    <button onClick={ () => productUnit > 1 && setProductUnit(--productUnit)}>-</button>          
                     <button onClick={ productUnit < stock ?() => setProductUnit(++productUnit):null}>+</button>
+                    <button onClick={ () => productUnit > 1 && setProductUnit(--productUnit)}>-</button>          
                 </div>
                 <ButtonBlack handleClic={addCartProductSpecific}>
                     <TextSpan>AÑADIR AL CARRITO</TextSpan>
