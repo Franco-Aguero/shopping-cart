@@ -25,7 +25,8 @@ ContainerDiv = styled.div`
 `,
 SizesList = styled.ul`
     display: flex;
-    grid-gap: .5rem;
+    grid-gap:${({spacing}) => spacing || ".5rem"};
+    margin: 1rem 0;
 `,
 UrlText = styled.h5`
     font-weight: 500;
@@ -37,12 +38,43 @@ SkuValue = styled.span`
     font-weight: 500;
     font-size: 12px;
 `,
+TextColorAndSizes = styled.span`
+    b{
+        font-size: 1rem;
+        margin-right:1rem;
+    }
+`,
 TechnicalInformation = styled.div`
     display: flex;
     flex-direction: column;
     span{
         margin: .5rem 0 1rem;
     }
+`,
+ButtonRadius = styled.button`
+    background: ${({theme}) => theme || "black"};
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    position:relative;
+    &:before{
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
+        border: 2px solid #767676;
+        opacity: ${({active}) => active? 1 : 0.3};
+        padding: 2px;
+    }
+`,
+SquareButton = styled.button`
+    background: ${({active}) => active? "rgb(0, 0, 0)" : "none"};
+    color: ${({active}) => active? "white" : "none"};
+    border: 1px solid ${({active}) => active? "black" : "#dfdfdf"}; 
+    padding: 4px 12px; 
 `;
 const Detail = () => {
     const { getProductSpecific, productSpecific} = useContext(CartContext);
@@ -69,7 +101,7 @@ const Detail = () => {
         ],
         breadcrumb: [],
     }); 
-    const modifyTalles = (e) => setState({...state,vTalle:e.target.value})
+    const modifySizeAndColor = (e) => setState({...state, [e.target.name] :e.target.value})
     useEffect( () => {
         getProductSpecific()
     },[])  
@@ -130,19 +162,28 @@ const Detail = () => {
                             <h3>S/ { state.price}</h3>
                             <Divider/>
                             <div>
-                                <b>COLOR</b> {state.variantes.color.value}
+                                <TextColorAndSizes>
+                                    <b>COLOR :</b> {state.variantes.color.value.toUpperCase()}
+                                </TextColorAndSizes>
+                                <SizesList spacing="1.5rem">
+                                    {
+                                        productSpecific.product.attributes[1].values.map( el =>
+                                            <li>
+                                                <ButtonRadius theme={el.value} active={activeStyle(state.vColor,numC)} name="vColor" value={numC++} onClick={(e) => modifySizeAndColor(e)}/>
+                                            </li>
+                                        )
+                                    }
+                                    <li><ButtonRadius theme={"#7d7d83"} active={activeStyle(state.vColor,99)} name="vColor" value={99} onClick={(e) => modifySizeAndColor(e)}/></li> {/* example for developers */}
+                                </SizesList>
                                 <br />
-                                <input type="radio" name="" id="" />
-                                <input type="radio" name="" id="" />
-                                <input type="radio" name="" id="" />
-                                    <br />
-                                <b>TALLA</b> {state.variantes.talla.value} 
-                                    <br />
-                                <SizesList className="ContainetButtons">
+                                <TextColorAndSizes>
+                                    <b>TALLA :</b> {state.variantes.talla.value} 
+                                </TextColorAndSizes>
+                                <SizesList spacing="1rem">
                                 {
                                     productSpecific.product.attributes[0].values.map( el => 
                                         <li key={el.id}>
-                                            <button className={activeStyle(state.vTalle,numT)} value={numT++} onClick={(e) => modifyTalles(e)}>{el.value}</button>
+                                            <SquareButton active={activeStyle(state.vTalle,numT)} name="vTalle" value={numT++} onClick={(e) => modifySizeAndColor(e)}>{el.value}</SquareButton>
                                         </li> 
                                     )
                                 }
