@@ -6,7 +6,6 @@ import ShoppingCart from "./ShoppingCart";
 import Divider from "./Views/divider";
 import utils from "./utils";
 import styled, { css } from "styled-components";
-import s from "./detail.css";
 
 const CenterArticle = styled.article`
     min-height: 86vh;
@@ -164,9 +163,9 @@ const Detail = () => {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <UrlText>{state.breadcrumb.join(" /  ")}</UrlText>
 
-          <ContainerDiv className={s.Container}>
+          <ContainerDiv>
             <img src={state.src} alt="product" width={400} />
-            <div className={s.Left}>
+            <div>
               <h2>{state.name}</h2>
               <SkuValue>SKU: {state.sku}</SkuValue>
               <h3>S/ {state.price}</h3>

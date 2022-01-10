@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled, { css } from "styled-components";
-//import "./modal.css"
 
 const ModalArticle = styled.article`
   position: fixed;

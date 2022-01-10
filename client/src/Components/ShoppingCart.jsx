@@ -8,7 +8,6 @@ import ButtonBlack from "./Views/buttonBlack";
 import Divider from "./Views/divider";
 import utils from "./utils";
 import styled from "styled-components";
-//import s from"./ShoppingCart.module.css"
 
 const ContainerDiv = styled.div`
     display: flex;
@@ -124,18 +123,18 @@ const ContainerDiv = styled.div`
 const ShoppingCart = ({ isOpen, closeModal }) => {
   const { shoppingCart } = useContext(CartContext);
   const { totalPriceCart, addSomethingLocalStorage } = utils;
-  const closeantescarga = () => {
+  const closeModalAndUpdateLocalStorage = () => {
     addSomethingLocalStorage("cart3", shoppingCart);
     /*   alert("se esta cerrando dispacha"); */
     closeModal();
   };
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeantescarga}>
+    <Modal isOpen={isOpen} closeModal={closeModalAndUpdateLocalStorage}>
       <ContainerDiv>
         <header>
           <h3>CARRO DE COMPRAS ({shoppingCart.length})</h3>
-          <button onClick={closeantescarga}>
+          <button onClick={closeModalAndUpdateLocalStorage}>
             <FontAwesomeIconClosed icon={faTimes} />
           </button>
         </header>
@@ -186,7 +185,7 @@ const ShoppingCart = ({ isOpen, closeModal }) => {
             <FontAwesomeIconCart icon={faShoppingCart} />
             <FontAwesomeIconCross icon={faTimes} />
             <h3>No hay productos en el carrito.</h3>
-            <ButtonBlack handleClic={closeantescarga}>
+            <ButtonBlack handleClic={closeModalAndUpdateLocalStorage}>
               <TextButton>Regresar atras</TextButton>
             </ButtonBlack>
           </DefaultContainer>

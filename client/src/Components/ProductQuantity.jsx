@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../Context/ShoppingCart/cartContext";
 import ButtonBlack from "./Views/buttonBlack";
-//import s from "./ProductQuantity.module.css"
 import styled from "styled-components";
 
 const QuantityInCartDiv = styled.div`
