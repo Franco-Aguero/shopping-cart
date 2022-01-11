@@ -152,10 +152,8 @@ const Detail = () => {
           el.url.toUpperCase()
         ),
       });
-      console.log("ENTROSS");
     }
   }, [productSpecific, state.vTalle]);
-  console.log(state);
 
   return Object.keys(productSpecific).length > 1 ? (
     <>

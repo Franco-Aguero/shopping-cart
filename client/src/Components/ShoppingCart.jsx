@@ -124,14 +124,13 @@ const ShoppingCart = ({ isOpen, closeModal }) => {
   const { shoppingCart } = useContext(CartContext);
   const { totalPriceCart, addSomethingLocalStorage } = utils;
   const closeModalAndUpdateLocalStorage = () => {
-    addSomethingLocalStorage("cart3", shoppingCart);
-    /*   alert("se esta cerrando dispacha"); */
+    addSomethingLocalStorage("cart", shoppingCart);
     closeModal();
   };
 
   return (
     <Modal isOpen={isOpen} closeModal={closeModalAndUpdateLocalStorage}>
-      <ContainerDiv>
+      <ContainerDiv >
         <header>
           <h3>CARRO DE COMPRAS ({shoppingCart.length})</h3>
           <button onClick={closeModalAndUpdateLocalStorage}>

@@ -9,10 +9,10 @@ const url =
 
 const CartState = (props) => {
   let { bringSomeLocalStorage } = utils,
-    localStorage = bringSomeLocalStorage("cart3");
+    localStorage = bringSomeLocalStorage("cart");
   const initialState = {
     productSpecific: {},
-    shoppingCart: localStorage.length > 0 ? localStorage : [],
+    shoppingCart: localStorage?.length > 0 ? localStorage : [],
   };
   const [state, dispatch] = useReducer(CartReducer, initialState);
 

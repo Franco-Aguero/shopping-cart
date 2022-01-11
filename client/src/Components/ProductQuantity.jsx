@@ -91,13 +91,11 @@ const ProductQuantity = ({
   useEffect(() => {
     if (viewCart) {
       addCart({ sku, unit: productUnit });
-      console.log("EN ALGUN MONETNO SAE ENVIO", viewCart);
     }
   }, [productUnit]);
   useEffect(() => {
     if (!viewCart) return setProductUnit(1); //esta verificacion es por si cambian de talle, que la unidad se resetee en el component detail
   }, [productData?.sku]);
-  console.log(viewCart);
   return (
     <>
       {viewCart ? (

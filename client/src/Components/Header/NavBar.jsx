@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from "./SearchBar";
 import styled from "styled-components";
-//import s from "./NavBar.module.css";
 
 const Header = styled.header`
     display: flex;
@@ -40,7 +39,7 @@ const NavBar = () => {
     let list = ["MUJER","HOMBRE", "COLECCIONES", "PROMOCIONES", "NAVIDAD"], numberKey = 0;
     
     return (
-        <Header /* className={s.Container} */>
+        <Header>
             <FirstDiv>
                 <SearchBar/>
                 <TitleH1>JOCKEY</TitleH1>
